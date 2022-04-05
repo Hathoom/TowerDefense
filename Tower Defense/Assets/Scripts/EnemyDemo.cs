@@ -11,8 +11,8 @@ public class EnemyDemo : MonoBehaviour
 
     public int coins = 3;
 
-    private bool isWalking = false;
-    private bool isRunning = false;
+    public bool isWalking = false;
+    public bool isRunning = false;
 
     //   waypoints
     private int targetWaipointIndex;
@@ -36,6 +36,10 @@ public class EnemyDemo : MonoBehaviour
     private float timePassed;
     private int lastIndex;
 
+    //healthbar
+    public HealthBarBehavior healthBar;
+    private int maxHP = 3;
+
     //-----------------------------------------------------------------------------
     void Start()
     {
@@ -49,6 +53,8 @@ public class EnemyDemo : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         animator = GetComponent<Animator>();
+
+        healthBar.SetHealth(health, maxHP);
     }
 
     //-----------------------------------------------------------------------------
@@ -84,6 +90,15 @@ public class EnemyDemo : MonoBehaviour
             speed = 6f;
         }
 
+        // // fix animation bug
+        // bool check = animator.GetCurrentAnimatorStateInfo(0).IsName("Running");
+        // Debug.Log(check);
+
+        // if(check)
+        // {
+        //     animator.SetTrigger(Running);
+        // }
+
         // todo #4 Check if destination reaches or passed and change target
 
         //Debug.Log(movementDir);
@@ -114,7 +129,7 @@ public class EnemyDemo : MonoBehaviour
             }
 
             targetWaipointIndex++;
-            if (targetWaipointIndex == 13)
+            if (targetWaipointIndex == lastIndex)
             {
                 //stop moving
                 speed = 0f;
@@ -163,6 +178,8 @@ public class EnemyDemo : MonoBehaviour
     public void ReduceHP(int damage)
     {
         health = health - damage;
+
+        healthBar.SetHealth(health, maxHP);
 
         if (health <= 0)
         {

@@ -20,9 +20,9 @@ public class ClickonEnemy : MonoBehaviour
             {
                 Debug.Log(hitInfo.collider.gameObject.name);
 
-                if (hitInfo.collider.gameObject.name == ("Demo Enemy"))
+                if (hitInfo.collider.gameObject.name == ("Enemy"))
                 {
-                    hitInfo.collider.gameObject.GetComponent<EnemyDemo>().ReduceHP(1);
+                    hitInfo.collider.gameObject.GetComponent<EnemyFinal>().ReduceHP(1);
                 }
             }
             else
