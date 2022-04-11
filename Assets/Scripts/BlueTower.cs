@@ -44,7 +44,7 @@ public class BlueTower : MonoBehaviour
                 }
             }
             // no target, get the next target
-            else
+            else 
             {
                 if (targets.Peek() != null)
                 {
